@@ -1,17 +1,11 @@
 # **LoRa-Based Communication for Battery Monitoring System (BMS) in EVs**
 
-![LoRa-BMS Banner](https://via.placeholder.com/800x200.png?text=LoRa-Based+Battery+Monitoring+System)
-
 ## **Table of Contents**
 1. [Overview](#overview)
 2. [Features](#features)
 3. [Hardware Components](#hardware-components)
-4. [System Architecture](#system-architecture)
-5. [Software Implementation](#software-implementation)
-6. [Testing and Results](#testing-and-results)
+4. [Testing and Results](#testing-and-results)
 7. [Applications](#applications)
-8. [Future Enhancements](#future-enhancements)
-9. [Conclusion](#conclusion)
 
 ---
 
@@ -25,7 +19,7 @@ The **LoRa-based Communication for Battery Monitoring System (BMS) in EVs** is a
   - Collects temperature, current, and voltage data from DHT11, ACS712, and voltage sensors.
 - **Battery Management**:
   - Calculates State of Charge (SoC) and State of Health (SoH).
-  - Automates charging and discharging control using 5V relays.
+  - Automates charging and discharging control using relays.
 - **Safety Mechanisms**:
   - Immediate battery isolation via safety relay during over-temperature, over-current, or over-voltage conditions.
 - **Communication**:
@@ -39,7 +33,7 @@ The **LoRa-based Communication for Battery Monitoring System (BMS) in EVs** is a
 - **ESP32 Microcontroller**: Core processing and communication.
 - **3S Li-ion Battery Pack**: 3x18650 cells with 2200mAh capacity.
 - **DHT11 Sensor**: Measures temperature and humidity.
-- **ACS712 Current Sensor**: Monitors real-time current.
+- **ACS712 Current Sensor**: Monitors current.
 - **Voltage Sensor**: Measures battery voltage.
 - **L298 Motor Driver**: Drives a 12V DC motor.
 - **5V Relays**: Controls charging/discharging operations.
@@ -49,16 +43,35 @@ The **LoRa-based Communication for Battery Monitoring System (BMS) in EVs** is a
 
 ---
 
-## **System Architecture**
+## **Testing and Results**
+### **1. Communication Range**
+- **Open Areas**: Achieved up to **1.2 km** of stable LoRa communication.
+- **Urban Environments**: Reliable operation up to **650 m**, with moderate obstacles causing minimal interference.
 
-```mermaid
-graph TD
-    A[ESP32 Microcontroller] -->|Temperature Data| B[DHT11 Sensor]
-    A -->|Current Data| C[ACS712 Current Sensor]
-    A -->|Voltage Data| D[Voltage Sensor]
-    A -->|Control Signals| E[5V Relays]
-    E -->|Battery Pack Connection| F[3S Li-ion Battery Pack]
-    F -->|Power Supply| G[L298 Motor Driver]
-    G -->|Load| H[12V Motor]
-    A -->|LoRa Communication| I[LoRa Module]
-    A -->|Safety Trigger| J[Safety Relay]
+### **2. Safety Tests**
+- **Over-Voltage**: Threshold exceeded at **> 12.6V**.
+- **Over-Current**: Triggered at **> 1A**.
+- **Over-Temperature**: Activated at **> 60°C**.
+
+### **3. Battery Performance**
+- **Charging**: Maintained stable operation using a **12V, 1A charger**.
+- **Discharging**: Delivered consistent performance driving a **12V motor** via the L298 driver.
+
+---
+
+## **Applications**
+**Electric Vehicles (EVs)**
+  - Real-time battery monitoring and management for EVs.
+  - Enables Vehicle-to-Vehicle (V2V) and Vehicle-to-Infrastructure (V2I) communication for charging requests and capacity sharing.
+
+**Renewable Energy Systems**
+  - Monitors battery health in solar and wind energy storage setups.
+  - Ensures efficient charging and discharging for optimal energy usage.
+
+**Smart Energy Grids**
+  - Facilitates IoT-based battery data sharing for grid-level energy distribution.
+  - Enables predictive maintenance and load balancing.
+
+**Industrial Applications**
+  - Battery monitoring in automated machinery and robotics.
+  - Prevents system failures due to battery anomalies.
